@@ -40,4 +40,5 @@ Gem::Specification.new do |spec|
 
   # spec.add_dependency 'tty-box',         '~> 0.5.0'
   spec.add_dependency 'k_builder', '~> 0.0'
+  spec.add_dependency 'k_builder-package_json', '~> 0.0'
 end
