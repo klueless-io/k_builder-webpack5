@@ -1,0 +1,16 @@
+/bin/
+/bin/runonce/
+
+node_modules
+dist
+.cache
+_
+/.history/
+/coverage/
+/log/
+!/log/.keep
+/tmp/
+!/tmp/.keep
+
+# Environment File
+.env
