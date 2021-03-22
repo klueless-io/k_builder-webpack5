@@ -3,7 +3,7 @@
 module KBuilder
   module Webpack5
     # Configuration currently comes from KBuilder and stores template folders and target folders if configured
-    class WebpackBuilder < KBuilder::Builder
+    class WebpackBuilder < KBuilder::BaseBuilder
       # In memory representation of .webpack-rc.json and generator for webpack.config.js
       # attr_writer :webpack_config
       attr_writer :webpack_rc
