@@ -40,18 +40,22 @@ RSpec.describe KBuilder::Webpack5::WebpackBuilder do
   let(:samples_folder) { File.join(Dir.getwd, 'spec', 'samples') }
   let(:target_folder) { samples_folder }
   let(:app_template_folder) { File.join(samples_folder, 'app-template') }
+  # let(:global_template_folder) { File.join(samples_folder, 'global-template') }
   let(:global_template_folder) { File.join(Dir.getwd, '.templates') }
 
-  let(:cfg) do
-    lambda { |config|
-      config.target_folder = target_folder
-      config.template_folder = app_template_folder
-      config.global_template_folder = global_template_folder
-      config.package_json.default_package_groups
-    }
-  end
+  shared_context 'basic configuration' do
+    let(:cfg) do
+      lambda { |config|
+        config.target_folders.add(:app, target_folder)
 
-  # include_context :use_temp_folder
+        # Default opinionated package groups
+        config.package_json.default_package_groups
+
+        config.template_folders.add(:global , global_template_folder)
+        config.template_folders.add(:app , app_template_folder)
+      }
+    end
+  end
 
   # Out of the box, webpack won't require you to use a configuration file.
   # However, it will assume the entry point of your project is src/index.js
@@ -89,6 +93,8 @@ RSpec.describe KBuilder::Webpack5::WebpackBuilder do
   # Do you want to add PWA support? (Y/n)
   #
   describe '#initialize' do
+    include_context 'basic configuration'
+
     subject { builder }
 
     context 'with default configuration' do
@@ -100,13 +106,13 @@ RSpec.describe KBuilder::Webpack5::WebpackBuilder do
       it { is_expected.to eq(target_folder) }
     end
 
-    describe '.template_folder' do
-      subject { builder.template_folder }
+    describe '#get_template_folder(:app)' do
+      subject { builder.get_template_folder(:app) }
       it { is_expected.to eq(app_template_folder) }
     end
 
-    describe '.global_template_folder' do
-      subject { builder.global_template_folder }
+    describe '#get_template_folder(:global)' do
+      subject { builder.get_template_folder(:global) }
       it { is_expected.to eq(global_template_folder) }
     end
 
@@ -127,6 +133,8 @@ RSpec.describe KBuilder::Webpack5::WebpackBuilder do
   end
 
   describe '#webpack_init' do
+    include_context 'basic configuration'
+
     before :each do
       builder.webpack_init
     end
@@ -146,6 +154,7 @@ RSpec.describe KBuilder::Webpack5::WebpackBuilder do
   end
 
   describe '#process_any_content' do
+    include_context 'basic configuration'
     # debug code to be addeded where needed
     # it { puts File.read(instance.webpack_rc_file) }
     include_context :use_temp_folder
