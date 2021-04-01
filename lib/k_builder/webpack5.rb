@@ -16,3 +16,5 @@ module KBuilder
     # Your code goes here...
   end
 end
+
+puts "KBuilder::Webpack5::Version: #{KBuilder::Webpack5::VERSION}" if ENV['KLUE_DEBUG']&.to_s&.downcase == 'true'
