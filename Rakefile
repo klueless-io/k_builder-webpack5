@@ -19,7 +19,7 @@ end
 desc 'Publish the gem to RubyGems.org'
 task :publish do
   system 'gem build'
-  system "gem push #{GEM_NAME}-#{KDoc::VERSION}.gem"
+  system "gem push #{GEM_NAME}-#{KBuilder::Webpack5::VERSION}.gem"
 end
 
 desc 'Remove old *.gem files'
