@@ -17,4 +17,9 @@ module KBuilder
   end
 end
 
-puts "KBuilder::Webpack5::Version: #{KBuilder::Webpack5::VERSION}" if ENV['KLUE_DEBUG']&.to_s&.downcase == 'true'
+if ENV['KLUE_DEBUG']&.to_s&.downcase == 'true'
+  namespace = 'KBuilder::Webpack5::Version'
+  file_path = $LOADED_FEATURES.find { |f| f.include?('k_builder/webpack5/version') }
+  version   = KBuilder::Webpack5::VERSION.ljust(9)
+  puts "#{namespace.ljust(35)} : #{version.ljust(9)} : #{file_path}"
+end
