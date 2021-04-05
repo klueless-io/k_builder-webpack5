@@ -10,7 +10,7 @@ module KBuilder
       end
 
       def as_json
-        KBuilder.data.struct_to_hash(self)
+        KUtil.data.to_hash(self)
       end
     end
   end
