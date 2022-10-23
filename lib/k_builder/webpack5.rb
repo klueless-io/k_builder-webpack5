@@ -17,7 +17,7 @@ module KBuilder
   end
 end
 
-if ENV['KLUE_DEBUG']&.to_s&.downcase == 'true'
+if ENV.fetch('KLUE_DEBUG', 'false').downcase == 'true'
   namespace = 'KBuilder::Webpack5::Version'
   file_path = $LOADED_FEATURES.find { |f| f.include?('k_builder/webpack5/version') }
   version   = KBuilder::Webpack5::VERSION.ljust(9)

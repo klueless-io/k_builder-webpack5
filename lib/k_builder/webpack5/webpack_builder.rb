@@ -49,7 +49,7 @@ module KBuilder
 
       # Webpack init will create .webconfig-rc.json
       def webpack_init
-        File.delete(webpack_rc_file) if File.exist?(webpack_rc_file)
+        FileUtils.rm_rf(webpack_rc_file)
 
         @webpack_rc = @factory.webpack
         write_webpack_rc
